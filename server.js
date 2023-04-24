@@ -1,19 +1,45 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const Threads = require('./models/Threads');
 const port = 3003;
 
-// publicディレクトリを静的ファイルのルートとして設定
-app.use(express.static('public'));
+app.use(express.json()); // body-parserの設定
+app.use(express.static('public')); // publicディレクトリを静的ファイルのルートとして設定
 
-// mongoDB接続
-mongoose.connect('mongodb+srv://ps3neito:eGGAVlbQ81mK9WDU@mongodb-cluster.cmfejuq.mongodb.net/threads?retryWrites=true&w=majority', {
+// MongoDB接続
+const uri = 'mongodb+srv://ps3neito:eGGAVlbQ81mK9WDU@mongodb-cluster.cmfejuq.mongodb.net/threads?retryWrites=true&w=majority';
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 .then(() => console.log('MongoDBに接続しました'))
 .catch((err) => console.log('MongoDBへの接続に失敗しました', err));
 
+
+// getメソッド（dbからサーバーへデータ取得する）
+app.get("/api/v1/threads", async (req, res) => {
+  try {
+    // 非同期処理を記述
+    const allThreads = await Threads.find({});
+    res.status(200).json(allThreads);
+  } catch (err) {
+    // エラー処理を記述
+    console.log(err);
+  }
+});
+
+// postメソッド（単一の投稿作成）
+app.post("/api/v1/thread", async (req, res) => {
+  try {
+    // 非同期処理を記述
+    const createThread = await Threads.create(req.body);
+    res.status(200).json(createThread);
+  } catch (err) {
+    // エラー処理を記述
+    console.log(err);
+  }
+});
 
 // ポート番号を指定してアプリケーションを起動
 app.listen(port, () => {
