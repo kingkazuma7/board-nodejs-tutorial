@@ -23,7 +23,7 @@ const getAllThreads = async () => {
       </div>
       `;
     });
-    jsThreadSection.innerHTML = allThreads.join(); // 挿入
+    jsThreadSection.innerHTML = allThreads.join(''); // 挿入
   } catch (err) {
     console.log(err);
   }
@@ -50,6 +50,7 @@ jsForm.addEventListener('submit', async (e) => {
     } catch (error) {
       console.log(error);
     }
+    getAllThreads();
   } else {
     console.log("error");
   }
