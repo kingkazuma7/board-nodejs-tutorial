@@ -2,14 +2,14 @@ const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
 const Threads = require('./models/Threads');
+require("dotenv").config();
 const port = 3003;
 
 app.use(express.json()); // body-parserの設定
 app.use(express.static('public')); // publicディレクトリを静的ファイルのルートとして設定
 
 // MongoDB接続
-const uri = 'mongodb+srv://ps3neito:eGGAVlbQ81mK9WDU@mongodb-cluster.cmfejuq.mongodb.net/threads?retryWrites=true&w=majority';
-mongoose.connect(uri, {
+mongoose.connect(process.env.MONGOURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
