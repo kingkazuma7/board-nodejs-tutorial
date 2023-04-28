@@ -5,6 +5,22 @@ const jsInputContent = document.getElementById('js-input-content');
 let inputText = "";
 let inputContent = "";
 
+// スレッド削除ボタン
+const deleteThreadButton = (id) => {
+  return `<button class="js-delete-button" data-id="${id}">削除</button>`;
+};
+
+// スレッド削除処理
+const deleteThread = async (id) => {
+  try {
+    const deletedThread = await axios.delete(`/api/v1/thread/${id}`);
+    console.log(deletedThread.data.message);
+    getAllThreads();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Threadsのすべてを読み込む
 const getAllThreads = async () => {
   try {
@@ -13,17 +29,28 @@ const getAllThreads = async () => {
     
     // 出力
     allThreads = data.map((thread) => {
-      const { title, content, uploadTime} = thread;
-      console.log(title, content, uploadTime);
+      const { _id, title, content, uploadTime} = thread;
+      // console.log(title, content, uploadTime);
       return `
       <div class="single-thread">
         <h3>${title}</h3>
         <p>${content}</p>
         <p>${uploadTime}</p>
+        ${deleteThreadButton(_id)}
       </div>
       `;
     });
     jsThreadSection.innerHTML = allThreads.join(''); // 挿入
+    
+    // 削除ボタンにイベントリスナーを追加
+    const deleteButtons = document.querySelectorAll(".js-delete-button");
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const id = e.target.dataset.id;
+        deleteThread(id);
+      });
+    });
+    
   } catch (err) {
     console.log(err);
   }

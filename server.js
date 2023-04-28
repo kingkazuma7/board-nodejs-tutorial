@@ -41,6 +41,26 @@ app.post("/api/v1/thread", async (req, res) => {
   }
 });
 
+// deleteメソッド（単一の投稿削除）
+app.delete("/api/v1/thread/:id", async (req, res) => {
+  try {
+    // 非同期処理を記述
+    const deletedThread = await Threads.findOneAndDelete(req.params.id);
+    if (deletedThread) {
+      res.status(200).json({
+        message: 'スレッドが削除されました',
+        deletedThread: deletedThread
+      });
+    } else {
+      res.status(404).json({
+        message: 'スレッドが見つかりませんでした'
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // ポート番号を指定してアプリケーションを起動
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
