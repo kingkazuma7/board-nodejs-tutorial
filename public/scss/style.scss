@@ -1,9 +1,32 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,200&display=swap");
-
 * {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "BIZ UDPGothic",
+    Meiryo,
+    sans-serif;
+  box-sizing: border-box;
+}
+
+@mixin box-shadow {
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0;
+  border-radius: 0.25rem;
+  box-shadow: 0 10px 20px #ccc;
+}
+
+@mixin form-text {
+  display: inline-block;
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  background: #f2f2f2;
+  margin: 0.5em 0;
 }
 
 body {
@@ -14,12 +37,19 @@ body {
 
 .board-section {
   width: 100%;
-  max-width: 1240px;
+  max-width: 800px;
   margin: 0 auto;
   padding-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  .row {
+    width: 100%;
+    &:nth-child(n+2) {
+      padding: 0 15px;
+    }
+  }
 
   h2 {
     text-align: center;
@@ -28,23 +58,33 @@ body {
 }
 
 .thread-section {
-  width: 70%;
 
   .single-thread {
     margin-bottom: 20px;
-    box-shadow: 1px 0px 4px #201f1f;
     padding: 30px 20px;
-    border-radius: 5px;
+    width: 100%;
+    @include box-shadow();
   }
 }
 
 .form-section {
-  background-color: azure;
-  box-shadow: 1px 0px 3px #474747;
-  border-radius: 5px;
-  padding: 15px 100px;
+  padding: 30px 20px;
   margin-top: 15px;
   margin-bottom: 30px;
+  @include box-shadow();
+  background-color: lightyellow;
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 20px;
+    .btn {
+      margin: 0 auto;
+      width: 30%;
+    }
+    .form-text {
+      @include form-text();
+    }
+  }
 }
 
 .input-section {
