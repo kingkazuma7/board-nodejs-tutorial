@@ -7,7 +7,7 @@ let inputContent = "";
 
 // スレッド削除ボタン
 const deleteThreadButton = (id) => {
-  return `<button class="js-delete-button" data-id="${id}">削除</button>`;
+  return `<button class="js-delete-button btn btn-danger" data-id="${id}">削除</button>`;
 };
 
 // スレッド削除処理
