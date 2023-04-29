@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGOURL, {
 app.get("/api/v1/threads", async (req, res) => {
   try {
     // 非同期処理を記述
-    const allThreads = await Threads.find({});
+    const allThreads = await Threads.find({}).sort({ uploadTime: -1 });
     res.status(200).json(allThreads);
   } catch (err) {
     // エラー処理を記述
