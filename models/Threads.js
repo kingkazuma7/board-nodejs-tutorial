@@ -14,20 +14,6 @@ const ThreadsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  replies: [{
-    content: {
-      type: String,
-      required: true,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    postTime: {
-      type: Date,
-      default: Date.now,
-    },
-  }]
 });
 
 // ThreadsSchemaを、Threadsで他のファイルで使えるように
