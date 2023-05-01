@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const Threads = require('./models/Threads');
 require("dotenv").config();
-const port = 3003;
+const port = process.env.PORT || 3003;
 
 app.use(express.json()); // body-parserの設定
 app.use(express.static('public')); // publicディレクトリを静的ファイルのルートとして設定
